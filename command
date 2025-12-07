@@ -239,7 +239,7 @@ lenovo@javohir:~/linux$ ls -l
 -rw-rw-rw- 1 lenovo lenovo   13 Dec  4 18:05 text.txt
 
 # bu hammaga rwx yani o'qish, yozish va bajarish (execute) uchun ruxsat beramiz degani - [user->111, group->111, other->111]
-chmod 777 text.txt 
+chmod 777 text.txt  # Endi chundilarni nimaga 777 raqami VIP bo'lib ishlatilinishini? Bularni hamma narsaga access'lari bor )
 
 # Natija:
 lenovo@javohir:~/linux$ ls -l
@@ -259,6 +259,99 @@ chmod 755 text.txt
 # Natija:
 lenovo@javohir:~/linux$ ls -l
 -rwxr-xr-x 1 lenovo lenovo   13 Dec  4 18:05 text.txt
+
 # ================================================== #
-# ============ Access lar bilan ishlash ============ #
+# =========== file, less, symbolic links =========== #
 # ================================================== #
+
+## FILE
+file text.txt # Qaysi turdagi ma’lumot saqlayapti? Shu savolga javob beradi.
+text.txt: ASCII text
+# bu fayl aynan .txt bilan tugashi shart emas
+mv text.txt text
+
+file text 
+text: ascii text
+
+
+## LESS
+# less ning vazifasi uzun yoki odatda bir sahifaga sig'maydigan fayllarni o'qish uchun ishlatiladi.
+# chiqish uchun q
+less text.txt
+
+less result.json
+
+## SYMBOLIC LINKS
+cs /bin
+ls -l
+
+# Natija:
+lrwxrwxrwx 1 root root          10 Nov 12 17:15  python3 -> python3.12
+
+# Biz doim pythonni yangilashimiz mumkin aynan shundan keyin python3.10 ni python3.12 ga yangilasa
+# python orqali ishga tushirish vaqtida `python3.10 main.py` keyin esa `python3.12 main.py` qilmasligimiz uchun
+# bizga shu SYMBOLIC LINKS kerak bu bizga har qanday pythonning 3 versiyasiga tegishli versiyalarni python3 bilan ishga tushirish uchun imkoniyat beradi.
+
+# ================================================== #
+# =========== file, less, symbolic links =========== #
+# ================================================== #
+
+
+# Oddiy folder create qilish uchun
+mkdir somename
+
+# Bir vaqtda ko'r folderlar create qilish uchun
+mkdir first secont ...
+
+# Copy
+# File create
+touch something
+ls
+
+# Natija:
+linux-logo.png  one  result.json  something  test  text  three  two
+
+# something ni test/ ichiga copy qilingi
+cp something test/
+ls test/
+
+# Natija:
+something
+
+# Esdan chiqarish kerak emas bu faqat copy qiladi eskisi o'chib ketmaydi!
+ls
+
+# Natija:
+linux-logo.png  one  result.json  something  test  text  three  two
+
+# Agar dir ni copy qilmoqchi bo'lsak
+# Xato chiqadi
+cp  one test/
+
+# Natija:
+cp: -r not specified; omitting directory 'one'
+
+
+cp -r one test/
+ls test/
+
+# Natija:
+one  something
+
+# WARNING
+# Agar copy qilmoqchi bo'lgan joyingizda huddi shu nom bilan boshqa fayl bo'lsa
+# hechqanday ogohlantirishsiz overwrite qiladi yani uni o'rniga siz copy qilayotgan faylingizni joylaydi.
+# Bunda extiyot bo'lishingiz kerka va copy qilishdan avval ls bilan tekshiring bu nom bilan faly mavjud emasmi deb.
+
+# agar fayllar ko'p va siz tekshirishga ketadigan vaqtingizni tejamoqchi bo'lsangiz -i ishlating.
+cp -i something test/
+
+# Natija:
+cp: overwrite 'test/something'?
+
+# Avval file yozamiz
+echo "hello" > one/a.txt
+cp -ir one test/
+
+# Natija:
+cp: overwrite 'test/one/a.txt'?
