@@ -293,7 +293,7 @@ lrwxrwxrwx 1 root root          10 Nov 12 17:15  python3 -> python3.12
 # bizga shu SYMBOLIC LINKS kerak bu bizga har qanday pythonning 3 versiyasiga tegishli versiyalarni python3 bilan ishga tushirish uchun imkoniyat beradi.
 
 # ================================================== #
-# =========== file, less, symbolic links =========== #
+# ============== mkdir, touch, cp, mv ============== #
 # ================================================== #
 
 
@@ -332,7 +332,7 @@ cp  one test/
 cp: -r not specified; omitting directory 'one'
 
 
-cp -r one test/
+cp -r one test/  # y or n
 ls test/
 
 # Natija:
@@ -351,7 +351,73 @@ cp: overwrite 'test/something'?
 
 # Avval file yozamiz
 echo "hello" > one/a.txt
-cp -ir one test/
+cp -ir one test/ 
 
 # Natija:
 cp: overwrite 'test/one/a.txt'?
+
+# MOVE
+
+# test ni olib two ni ichiga joyladi
+mv text two
+
+# mv ning yan bir imkoniyati bu rename yani nomini o'zgartirishi mumkin.
+mv one first
+
+# Remove
+rm text
+
+# 10ta .py fayl create qilamiz.
+touch file{1..10}.py
+
+ls
+
+# Natija:
+# file10.py  file2.py  file4.py  file6.py  file8.py  first           result.json  test   two
+# file1.py   file3.py  file5.py  file7.py  file9.py  linux-logo.png  something    three
+
+# Endi bizga barcha .py bilan tugagan fayllarni o'chirish kerak bo'lsa *.py dan foydalanishimiz mumkin.
+ls
+# Natija:
+# file10.py  file2.py  file4.py  file6.py  file8.py  first           result.json  test   two
+# file1.py   file3.py  file5.py  file7.py  file9.py  linux-logo.png  something    three
+
+rm *.py
+
+ls
+
+# Natija:
+# first  linux-logo.png  result.json  something  test  three  two
+
+# Agar quyidagidek f*.py qiladigan bo'lsan f bilan boshlangan .py bilan tugagan hamma file ni o'chirardi.
+rm f*.py
+
+
+# ================================================== #
+# =========== hard link va symbolic link =========== #
+# ================================================== #
+
+# /home/lenovo/YouTube/code/linux_basics/image.png
+touch text
+ln text text-hard-link
+ls -l
+
+# Natija:
+# -rw-rw-r-- 2 lenovo lenovo      0 Dec  8 16:21 text
+# -rw-rw-r-- 2 lenovo lenovo      0 Dec  8 16:21 text-hard-link
+
+
+ln -s text text-sym-link
+ls -l
+
+# Natija:
+# -rw-rw-r-- 2 lenovo lenovo      0 Dec  8 16:21 text
+# -rw-rw-r-- 2 lenovo lenovo      0 Dec  8 16:21 text-hard-link
+# lrwxrwxrwx 1 lenovo lenovo      4 Dec  8 16:26 text-sym-link -> text
+
+rm text
+ls -l
+
+# Natija:
+# -rw-rw-r-- 1 lenovo lenovo      0 Dec  8 16:21 text-hard-link
+# lrwxrwxrwx 1 lenovo lenovo      4 Dec  8 16:26 text-sym-link -> text  # Qizarib qolgan bo'ladni yani yaroqli emas!
