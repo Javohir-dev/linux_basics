@@ -12,6 +12,30 @@ CRTL + l -> "Terminal oynasini tozalaydi, lekin o'chirib yubormaydi yuqoriga chi
 
 # Terminalda ham comment bor bu # bilan belgilanadi
 
+echo "Salom dunyo!"  # bu shunchaki outputga chiqaradi
+
+echo "Salom dunyo!" > text
+cat text
+# Salom dunyo!
+
+# car ni ikkita file uchun bir vaqtda ishlatish ham mumkin.
+cat text text
+
+echo "Salom olam" > text
+cat text
+# Salom olam
+
+# chunganingizdek `echo "Something" > filename` file ichidagi ma'lumotlarni saqlab qolmaydi,
+# fileni butunlay o'chirib qaytadan yangi ma'lumot bilan create qiladi.
+
+# O'chirmasdan keyingi qatordan qo'shish uchun esa yani append uchun >> ishlatish kerak.
+
+echo "Salom olam 2" >> text
+cat text
+# Salom olam
+# Salom olam 2
+
+
 # ================================================== #
 # ============ Boshlang'ich buyruqlar ============== #
 # ================================================== #
@@ -125,7 +149,7 @@ sudo su -> "Root userga o'tish"
 whoami -> "Endi bu root user nomini ko'rsatadi"
 
 
-lenovo@javohir:~/linux$ ls -l
+ls -l
 total 4
 drwxrwxr-x 2 lenovo lenovo 4096 May 12  2025 test       # Buni boshida d bor (drwxrwxr-x) bu d directory yani papka ekanligini bildiradi
 -rw-rw-r-- 1 lenovo lenovo    0 May 12  2025 text.txt   # Buni boshida - bor (-rw-rw-r--) bu - file yani fayl ekanligini bildiradi
@@ -159,10 +183,10 @@ chmod u-r text.txt
 # r -> read yani o'qishni
 
 # Natija:
-lenovo@javohir:~/linux$ ls -l
+ls -l
 --w-rw-r-- 1 lenovo lenovo    0 May 12  2025 text.txt
 
-lenovo@javohir:~/linux$ cat text.txt 
+cat text.txt 
 cat: text.txt: Permission denied
 
 # Endi shu hususiyatni qayta qo'shmoqchi bo'lsa quyidagidek qilishimiz kerak.
@@ -174,11 +198,11 @@ chmod u+r text.txt
 # r -> read yani o'qishni
 
 # Natija:
-lenovo@javohir:~/linux$ cat text.txt 
+cat text.txt 
 Salom dunyo!
 
 # Endi execute qilishni ko'ramiz
-lenovo@javohir:~/linux$ ./text.txt
+./text.txt
 bash: ./text.txt: Permission denied
 
 # Ruxsat berish uchun har doimgidek chmod yordamga keladi.
@@ -189,10 +213,10 @@ chmod +x text.txt
 # Boshida u, o, g, a kabilar yozilmadi chunki bo'sh qoldirsak default a yani all ni oladi
 
 # Natija:
-lenovo@javohir:~/linux$ ls -l
+ls -l
 -rwxrwxr-x 1 lenovo lenovo   13 Dec  4 18:05 text.txt
 
-lenovo@javohir:~/linux$ ./text.txt
+./text.txt
 ./text.txt: line 1: Salom: command not found
 
 # Ikkilik sanoq tizimida qanday sanaladi?
@@ -220,14 +244,14 @@ lenovo@javohir:~/linux$ ./text.txt
 chmod 000 text.txt # Bu degani hechkim hecnarsa qilolmaydi
 
 # Natija:
-lenovo@javohir:~/linux$ ls -l
+ls -l
 ---------- 1 lenovo lenovo   13 Dec  4 18:05 text.txt
 
 # bu 100 aslida [user->001, group->000, other->000] lar uchun ishlaydi yani user execute qilaoladi halos.
-lenovo@javohir:~/linux$ chmod 100 text.txt 
+chmod 100 text.txt 
 
 # Natija:
-lenovo@javohir:~/linux$ ls -l
+ls -l
 ---x------ 1 lenovo lenovo   13 Dec  4 18:05 text.txt
 
 
@@ -235,14 +259,14 @@ lenovo@javohir:~/linux$ ls -l
 chmod 666 text.txt  
 
 # Natija:
-lenovo@javohir:~/linux$ ls -l
+ls -l
 -rw-rw-rw- 1 lenovo lenovo   13 Dec  4 18:05 text.txt
 
 # bu hammaga rwx yani o'qish, yozish va bajarish (execute) uchun ruxsat beramiz degani - [user->111, group->111, other->111]
 chmod 777 text.txt  # Endi chundilarni nimaga 777 raqami VIP bo'lib ishlatilinishini? Bularni hamma narsaga access'lari bor )
 
 # Natija:
-lenovo@javohir:~/linux$ ls -l
+ls -l
 -rwxrwxrwx 1 lenovo lenovo   13 Dec  4 18:05 text.txt
 
 # Aasosiy ishlatilinadigan permissionlardan biri bu 644 yani [user->110, group->100, other->100] - user -> (rw-) group -> (r--) other -> (r--)
@@ -250,14 +274,14 @@ lenovo@javohir:~/linux$ ls -l
 chmod 644 text.txt
 
 # Natija:
-lenovo@javohir:~/linux$ ls -l
+ls -l
 -rw-r--r-- 1 lenovo lenovo   13 Dec  4 18:05 text.txt
 
 # Yana biri bu 755 yani [user->111, group->101, other->101] - user -> (rwx) group -> (r-x) other -> (r-x)
 chmod 755 text.txt 
 
 # Natija:
-lenovo@javohir:~/linux$ ls -l
+ls -l
 -rwxr-xr-x 1 lenovo lenovo   13 Dec  4 18:05 text.txt
 
 # ================================================== #
