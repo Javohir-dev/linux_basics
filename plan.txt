@@ -1,0 +1,12 @@
+kirish - Linux nima uchun kerak va qayerlarda ishlatiladi?
+Boshlang'ich buyruqlar - ls, pwd, cd shunga o'xshash
+Access va permission - chmod bilan + va - lar binery hisoblab permission berishlar.
+File va folderlar bilan ishlash - cat, less cd ls shunga o'xshashlar
+mkdir, touch, cp, mv - qisqacha tanishuv har biri nima ish qilishi bo'yicha.
+touch, mkdir, rm - chuqurroq va lifehacklar bilan.
+ps, top, htop, neofetch - Qisqacha
+Paketlar bilan ishlash - apt asoslari
+ping, curl, wget, ifconfig, ip a - tanishuv nima uchun kerak.
+.sh fayllari - example bilan qanday ishlatiladi shu haqida.
+history, Ctrl+R (search) - umumiy tushuncha
+PORT, IP - Shular bilan ishlash

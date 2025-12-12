@@ -306,7 +306,7 @@ less text.txt
 less result.json
 
 ## SYMBOLIC LINKS
-cs /bin
+cd /bin
 ls -l
 
 # Natija:
@@ -418,7 +418,7 @@ rm f*.py
 
 
 # ================================================== #
-# =========== hard link va symbolic link =========== #
+# =========== hard link va symbolic link =========== # Juda muhim emas
 # ================================================== #
 
 # /home/lenovo/YouTube/code/linux_basics/image.png
@@ -445,3 +445,215 @@ ls -l
 # Natija:
 # -rw-rw-r-- 1 lenovo lenovo      0 Dec  8 16:21 text-hard-link
 # lrwxrwxrwx 1 lenovo lenovo      4 Dec  8 16:26 text-sym-link -> text  # Qizarib qolgan bo'ladni yani yaroqli emas!
+
+# ================================================== #
+# ================ touch, mkdir, rm ================ #
+# ================================================== #
+Quyida **Linux terminalida `touch`, `mkdir`, `rm`** bo‘yicha **kreativ, lifehacklarga boy, YouTube darslikka mos** mini-reja va misollarni beraman. Videoni qiziqarli chiqarish uchun kichik “trick”lar ham qo‘shdim.
+
+---
+
+# 🎬 **Dars Rejasi: `touch`, `mkdir`, `rm` — Yashirin Lifehacklar bilan**
+
+## 1️⃣ Kirish: “Fayl yaratish, papka yaratish, o‘chirish – ammo procha usullar bilan!”
+
+— Dars maqsadi
+— Oddiy buyruqlar emas, **image generate**, **bulk create**, **safe delete**, **alias**, **pattern delete** kabi tricklar.
+
+---
+
+# 2️⃣ `touch` — FAYL YARATISH VA SECRET TRICKLAR
+
+### 🔹 Oddiy
+
+```bash
+touch file.txt
+```
+
+### 🔹 Bir nechta faylni birdan yaratish
+
+```bash
+touch a.txt b.txt c.txt
+```
+
+### 🔹 Pattern bilan fayl yaratish: { }
+
+```bash
+touch file{1..10}.txt
+```
+
+➡️ **10 ta fayl 1 soniyada**
+
+### 🔹 Fayl mavjud bo‘lsa — faqat vaqtini yangilash
+
+```bash
+touch existing.txt
+```
+
+Bu **log** fayllar yaratishda juda qo‘l keladi.
+
+### 🔹 Bir nechta extensionda fayl yaratish
+
+```bash
+touch test.{txt,log,json,py}
+```
+
+### 🔹 Pastadir ichidagi faylni hozirdan yaratish (ota katalog bo‘lmasa error)
+
+```bash
+touch dir1/dir2/test.txt
+```
+
+### 🔥 LIFEHACK: Kataloglarni ham avtomatik yaratib yuborish
+
+```bash
+mkdir -p dir1/dir2 && touch dir1/dir2/test.txt
+```
+
+➡️ IDE-lardagiga o‘xshash “folder → file” chain yaratish.
+
+---
+
+# 3️⃣ `mkdir` — PAPKA YARATISH SAN’ATI
+
+### 🔹 Oddiy
+
+```bash
+mkdir images
+```
+
+### 🔹 Birdan bir nechta papka yaratish
+
+```bash
+mkdir img logs cache
+```
+
+### 🔹 10 ta folder yaratish
+
+```bash
+mkdir folder{1..10}
+```
+
+### 🔹 Ichma-ich katalog yaratish (eng ko‘p ishlatiladi)
+
+```bash
+mkdir -p projects/app/src/components
+```
+
+### 🔹 Ruxsat bilan birga yaratish
+
+```bash
+mkdir -m 700 secure
+```
+
+---
+
+# 4️⃣ `rm` — O‘CHIRISH, LEKIN XAVFSIZ USULLAR BILAN
+
+## ⚠️ Eslatma: rm eng xavfli buyruqlardan biri
+
+### 🔹 Oddiy fayl o‘chirish
+
+```bash
+rm file.txt
+```
+
+### 🔹 Bir nechta faylni birdan o‘chirish
+
+```bash
+rm file1.txt file2.txt file3.txt
+```
+
+### 🔹 Papkani ichidagi bilan o‘chirish
+
+⚠️ Eng ehtiyot bo‘lish kerak bo‘lgan buyruq:
+
+```bash
+rm -r myfolder
+```
+
+### 🔹 Tasdiqlash bilan o‘chirish (safety)
+
+```bash
+rm -i data.txt
+```
+
+### 🔹 Force delete (tasdiqsiz)
+
+```bash
+rm -rf folder
+```
+
+### 🔥 LIFEHACK: ma’lum pattern bo‘yicha fayllarni o‘chirish
+
+```bash
+rm *.log
+rm file{1..5}.txt
+rm test_*.json
+```
+
+### 🔥 LIFEHACK: faqat 7 kundan eski fayllarni o‘chirish
+
+```bash
+find . -type f -mtime +7 -delete
+```
+
+### 🔥 “Undo” o‘rniga rossa qulay lifehack
+
+O‘chirib tashlamasdan **trash**ga yuborish:
+
+```bash
+sudo apt install trash-cli
+trash-put file.txt
+```
+
+---
+
+# 5️⃣ SUPER LIFEHACKLAR — DARSNING ENG QIZIQ JOYI
+
+## ⭐ 1. `mkdir` + `cd` ni birga qilish
+
+```bash
+mkdir newproj && cd newproj
+```
+
+## ⭐ 2. `touch` bilan “project template” yaratish
+
+```bash
+touch {index.html,app.js,style.css,README.md}
+```
+
+## ⭐ 3. Tasodifiy fayl yaratish (test uchun)
+
+```bash
+touch test_$(date +%s).txt
+```
+
+## ⭐ 4. Fayllarni o‘chirishdan oldin ko‘rish (dry-run)
+
+```bash
+ls | grep ".log"
+```
+
+## ⭐ 5. `rm` xavfsiz alternative — alias yasash
+
+```bash
+alias rm='rm -i'
+```
+
+Har safar tasdiq so‘raydi.
+
+---
+
+# 6️⃣ Yakun: Amaliy ko‘rsatma
+
+3 daqiqa ichida mini praktika:
+
+1. `mkdir -p project/src/utils`
+2. `touch project/src/{main.py,config.json}`
+3. `rm project/src/config.json`
+4. `trash-put project/src/main.py` (bonus)
+
+---
+
+Agar xohlasang, shu darslik bo‘yicha **YouTube videosiga tayyor ssenariy**, yoki **slayd** ham qilib beraman.
