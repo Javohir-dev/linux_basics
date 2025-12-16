@@ -653,7 +653,3 @@ Har safar tasdiq so‘raydi.
 2. `touch project/src/{main.py,config.json}`
 3. `rm project/src/config.json`
 4. `trash-put project/src/main.py` (bonus)
-
----
-
-Agar xohlasang, shu darslik bo‘yicha **YouTube videosiga tayyor ssenariy**, yoki **slayd** ham qilib beraman.
